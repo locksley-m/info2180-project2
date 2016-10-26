@@ -1,29 +1,29 @@
 var BLANK_X = 300;
 var BLANK_Y = 300;
-var tiles = [];
+var TILES = [];
 
 // initialize the page as soon as it's finished loading by creating the fifteen
 // puzzlepiece squares and attaching 'shufflebutton' click handler
 window.onload = function() {
-  generatetiles();
+  generateTiles();
   $("shufflebutton").observe("click", shuffle);
 };
 
 // attaches puzzlepiece class to each div in the puzzlearea
 // and positions each div, while attaching a click and mouseover 
 // handler to each div
-function generatetiles() {
-  tiles = $$('#puzzlearea div');
+function generateTiles() {
+  TILES = $$('#puzzlearea div');
   var j = 0;
   var t = 3;
-  for (var i = 0; i < tiles.length; i++) {
+  for (var i = 0; i < TILES.length; i++) {
     for (var x = 0; x <= t; x++) {
-      tiles[i].addClassName("puzzlepiece");
-      tiles[i].style.top = 100 * j + "px";
-      tiles[i].style.left = 100 * x  + "px";
-      tiles[i].style.backgroundPosition = -x * 100 + "px " + j * -100 + "px";
-      tiles[i].observe("click", moveTile);
-      tiles[i].observe("mouseover", hover);
+      TILES[i].addClassName("puzzlepiece");
+      TILES[i].style.top = 100 * j + "px";
+      TILES[i].style.left = 100 * x  + "px";
+      TILES[i].style.backgroundPosition = -x * 100 + "px " + j * -100 + "px";
+      TILES[i].observe("click", moveTile);
+      TILES[i].observe("mouseover", hover);
       i++;
     }
     j++;
@@ -66,9 +66,9 @@ function moveTile(event) {
 function shuffle() {
   var temp = [];
   for (var i = 0; i < 200; i++) {
-    for (var j = 0; j < tiles.length; j++) {
-      if (neighborTest(tiles[j].style.left, tiles[j].style.top)) {
-        temp.push(tiles[j]);
+    for (var j = 0; j < TILES.length; j++) {
+      if (neighborTest(TILES[j].style.left, TILES[j].style.top)) {
+        temp.push(TILES[j]);
       }
     }
     moveTileHelp(temp[Math.floor(Math.random() * temp.length)]);
