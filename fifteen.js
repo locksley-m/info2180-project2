@@ -2,7 +2,7 @@ var BLANK_X = 300;
 var BLANK_Y = 300;
 var	tiles=[];
 
-window.onload=function 
+window.onload=function()
 {
 	
 	tiles= document.querySelectorAll("#puzzlearea > div");
