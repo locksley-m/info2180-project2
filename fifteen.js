@@ -5,46 +5,44 @@ var base;
 
 $(document).ready(function(){
 	
-	
-	
-	setTiles();
-	$("#shufflebutton").on("click",shuffle())
-	setMovable();
-	moveTiles();
-	
-	
+	setTiles();	 // Setup tiles 
+	setMovable();//Set valid movable tiles
+	$("#shufflebutton").on( "click", function(){
+		
+		for (var i =0; i < Math.ceil(Math.random()*80); i++){	//Random number of shuffles		
+			shuffle();
+			setMovable();
+		}		
+	});	
+	moveTiles(); //Enable tile movement
 });
 
 
-function setTiles(){
+function setTiles(){ // Sets the tile locations and background position of the puzzlearea 
 	var i = 0;
-		var j = 0;
-		var x = 0;
-		var y = 0;
-		$("#puzzlearea>div").each(function(){
-			$(this).addClass("puzzlepiece"); // Give each puzzle piece the attributes of puzzle piece
-			base = $("#puzzlearea>div:first-child").position();
-			x = base.left+(98*i);
-			y = base.top+(98*j);
-			$(this).css({ // Set location of the pieces
-				"top": y,
-				"left": x			
-				
-			});
-			
-			if(i<3){
-				i++;
-			}else{
-				i=0;	
-				j++;
-			}
-			$(this).css({   // Set background for each puzzle piece 
-				"background-position-x":0-x,
-				"background-position-y":+0-y
-			});
-			
+	var j = 0;
+	var x = 0;
+	var y = 0;
+	$("#puzzlearea>div").each(function(){
+		$(this).addClass("puzzlepiece"); // Give each puzzle piece the attributes of puzzle piece
+		base = $("#puzzlearea>div:first-child").position();
+		x = base.left+(98*i);
+		y = base.top+(98*j);
+		$(this).css({ // Set location of the pieces
+			"top": y,
+			"left": x			
+		});
 		
-		
+		if(i<3){  // Check for row column structure 
+			i++;
+		}else{
+			i=0;	
+			j++;
+		}
+		$(this).css({   // Set background for each puzzle piece 
+			"background-position-x":0-x,
+			"background-position-y":+0-y
+		});
 		
 	});
 }
@@ -71,11 +69,11 @@ function isNeighbor(x,y){
 
 }
 
-//Set the tiles as movable piece or static
+//Set the tile the attribute of movablepiece or static
 function setMovable(){	
     
 	$(".puzzlepiece").each(function(){
-     
+     //If neighbor of the whitespace then is movable
 	 if( isNeighbor( $(this).css("left"), $(this).css("top")))		
     	 $(this).addClass("movablepiece");
 	 
@@ -87,7 +85,7 @@ function setMovable(){
 }
 
 
-// Move tile to empty space if is movable
+// Move tile to empty space if move is valid
 function moveTiles(){
 	
 	var tempX;
@@ -99,8 +97,8 @@ function moveTiles(){
 	
 	$(this).on("click", function(){	
 	if ( isNeighbor( $(this).css("left"), $(this).css("top")) ){	
-		tempX=$(this).css("left");
 		
+		tempX=$(this).css("left");		
 		tempY=$(this).css("top");
 		
 		$(this).animate({
@@ -113,22 +111,36 @@ function moveTiles(){
     	
 		setMovable();
 	    $(this).addClass("movablepiece");
-	}	
-	
-	console.log(blankXcord,blankYcord)
-	 });   
-   
+	 }		
+	});  
   });
   
 }
 
-
+//Function to make valid shuffle moves
 function shuffle(){
 	
-	$("#puzzlepiece").each(function(){
-		/*$(this).css({ 
-		  "top": ,
-		  "left": 						
-	  });*/
-	});
+	var tempX;
+	var tempY;	
+	
+	$(".puzzlepiece").each(function(){
+		//Check for neighbour ensures validity of shuffle move 	
+		if ( isNeighbor( $(this).css("left"), $(this).css("top")) ){
+		
+			tempX=$(this).css("left");		
+			tempY=$(this).css("top");
+		
+		$(this).css({
+		   "top":blankYcord,
+		   "left":blankXcord			
+		   });
+		   
+		blankXcord=tempX;
+		blankYcord=tempY;
+		
+	   }	
+          
+	 });	
+	
+	
 }
