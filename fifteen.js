@@ -9,7 +9,7 @@ $(document).ready(function(){
 	setMovable();//Set valid movable tiles
 	$("#shufflebutton").on( "click", function(){
 		
-		for (var i =0; i < Math.ceil(Math.random()*80); i++){	//Random number of shuffles		
+		for (var i =0; i < Math.ceil(Math.random()*90); i++){	//Random number of shuffles		
 			shuffle();
 			setMovable();
 		}		
