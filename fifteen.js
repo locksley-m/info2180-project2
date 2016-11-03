@@ -1,5 +1,5 @@
-var blankXcord= "294px" ;// Location of the blank piece 
-var blankYcord= "294px";
+var blankXcord= "300px" ;// Location of the blank piece 
+var blankYcord= "300px";
 var base;
 
 
@@ -26,8 +26,8 @@ function setTiles(){ // Sets the tile locations and background position of the p
 	$("#puzzlearea>div").each(function(){
 		$(this).addClass("puzzlepiece"); // Give each puzzle piece the attributes of puzzle piece
 		base = $("#puzzlearea>div:first-child").position();
-		x = base.left+(98*i);
-		y = base.top+(98*j);
+		x = base.left+(100*i);
+		y = base.top+(100*j);
 		$(this).css({ // Set location of the pieces
 			"top": y,
 			"left": x			
@@ -52,13 +52,13 @@ function setTiles(){ // Sets the tile locations and background position of the p
 function isNeighbor(x,y){ 
 	
 	
-	if ( Math.abs(parseInt(blankXcord) - parseInt(x)) == 98){
+	if ( Math.abs(parseInt(blankXcord) - parseInt(x)) == 100){
        if (Math.abs(parseInt(blankYcord)- parseInt(y)) == 0){		
 	      console.log("True");
 		  return true;
 		  
 	   }
-	}else if( Math.abs(parseInt(blankYcord) - parseInt(y)) == 98){
+	}else if( Math.abs(parseInt(blankYcord) - parseInt(y)) == 100){
        if (Math.abs(parseInt(blankXcord)- parseInt(x)) == 0){		
 	       console.log("True"); 
 		   return true;
